@@ -1,6 +1,10 @@
 import {useEffect, useState} from 'react';
 
-export const useHeadTitle = (initialValue: string) => {
+interface IPropUseHeadTitle {
+    title: string;
+}
+
+export const useHeadTitle = (initialValue: string): IPropUseHeadTitle => {
     const [title, setTitle] = useState<string>(initialValue);
 
     const updateTitle = () => {

@@ -1,6 +1,8 @@
 import { useInput } from "./hooks/useInput";
 import {useTabs} from "./hooks/useTabs";
 import {useHeadTitle} from "./hooks/useHeadTitle";
+import { useRef } from 'react';
+import {useClick} from "./hooks/useClick";
 
 const tabContent = [
     {
@@ -21,10 +23,15 @@ function App(): JSX.Element {
   }
   const checkAt = (value: string) => !value.includes('@', 1);
   const headTitle = useHeadTitle('Загрузка...');
+    const sayHello = (): void => {
+        console.log('hello');
+    }
+  const title = useClick(sayHello);
 
   const name = useInput('wertey', maxLen);
   const email = useInput('@', checkAt);
   const { currentItem, changeTab } = useTabs(0, tabContent);
+
   return (
     <div className={'App'}>
         <h1>Customs hooks</h1>
@@ -47,7 +54,8 @@ function App(): JSX.Element {
         </div>
 
         <div>
-            <h2>UseHeadTitle</h2>
+            <h2>useClick</h2>
+            <h3 ref={title}>Привет!</h3>
         </div>
     </div>
   );
