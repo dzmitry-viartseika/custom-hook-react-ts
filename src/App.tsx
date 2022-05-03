@@ -3,6 +3,7 @@ import {useTabs} from "./hooks/useTabs";
 import {useHeadTitle} from "./hooks/useHeadTitle";
 import { useRef } from 'react';
 import {useClick} from "./hooks/useClick";
+import {useConfirm} from "./hooks/useConfirm";
 
 const tabContent = [
     {
@@ -32,9 +33,19 @@ function App(): JSX.Element {
   const email = useInput('@', checkAt);
   const { currentItem, changeTab } = useTabs(0, tabContent);
 
+  const deleteAll = () => {
+      console.log('Удалили всё на свете');
+  }
+
+  const confirmDelete = useConfirm('Вы действительно что хотите это удалить?', deleteAll);
+
   return (
     <div className={'App'}>
         <h1>Customs hooks</h1>
+        <div>
+            <h2>useConfirm</h2>
+            <button onClick={confirmDelete}>Delete</button>
+        </div>
         {/*// or {...value} {...onChange}*/}
         <input type="text" placeholder={`Name`} value={name.value} onChange={name.onChange}/>
         <input type="text" placeholder={`Email`} value={email.value} onChange={email.onChange}/>
