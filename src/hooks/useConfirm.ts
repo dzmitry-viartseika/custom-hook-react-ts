@@ -1,5 +1,7 @@
 
-export const useConfirm = (message: string, callback: any): any => {
+type IParamsUseConfirm = () => void;
+
+export const useConfirm = (message: string, callback: IParamsUseConfirm) => {
     if (typeof callback !== 'function') return //
 
     const confirmAction = () => {

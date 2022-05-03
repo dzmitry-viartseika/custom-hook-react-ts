@@ -4,6 +4,7 @@ import {useHeadTitle} from "./hooks/useHeadTitle";
 import { useRef } from 'react';
 import {useClick} from "./hooks/useClick";
 import {useConfirm} from "./hooks/useConfirm";
+import {usePreventLeave} from "./hooks/usePreventLeave";
 
 const tabContent = [
     {
@@ -36,7 +37,7 @@ function App(): JSX.Element {
   const deleteAll = () => {
       console.log('Удалили всё на свете');
   }
-
+  const { enablePrevent, disablePrevent } = usePreventLeave();
   const confirmDelete = useConfirm('Вы действительно что хотите это удалить?', deleteAll);
 
   return (
@@ -45,6 +46,11 @@ function App(): JSX.Element {
         <div>
             <h2>useConfirm</h2>
             <button onClick={confirmDelete}>Delete</button>
+        </div>
+        <div>
+            <h2>usePreventLeave</h2>
+            <button onClick={enablePrevent}>Protect</button>
+            <button onClick={disablePrevent}>UnProtect</button>
         </div>
         {/*// or {...value} {...onChange}*/}
         <input type="text" placeholder={`Name`} value={name.value} onChange={name.onChange}/>
