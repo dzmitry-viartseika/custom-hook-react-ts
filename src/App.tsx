@@ -1,5 +1,6 @@
 import { useInput } from "./hooks/useInput";
 import {useTabs} from "./hooks/useTabs";
+import {useHeadTitle} from "./hooks/useHeadTitle";
 
 const tabContent = [
     {
@@ -19,6 +20,8 @@ function App(): JSX.Element {
       return value.length <= 10;
   }
   const checkAt = (value: string) => !value.includes('@', 1);
+  const headTitle = useHeadTitle('Загрузка...');
+
   const name = useInput('wertey', maxLen);
   const email = useInput('@', checkAt);
   const { currentItem, changeTab } = useTabs(0, tabContent);
@@ -41,6 +44,10 @@ function App(): JSX.Element {
                 ))}
                 currentTab={currentItem.content}
             </div>
+        </div>
+
+        <div>
+            <h2>UseHeadTitle</h2>
         </div>
     </div>
   );
