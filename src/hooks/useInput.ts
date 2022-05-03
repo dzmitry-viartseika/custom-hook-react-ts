@@ -15,21 +15,6 @@ export const useInput = (initialValue: string): IUseInput => {
         setValue(event.target.value);
     }
 
-    // const isBrowser: boolean = typeof window !== 'undefined';
-    //
-    // const [scrollY, setScrollY] = useState<number>(0);
-    //
-    // const handleScroll = () => {
-    //     const currentScrollY: number = isBrowser ? window.scrollY : 0;
-    //     setScrollY(currentScrollY);
-    // };
-    //
-    // useEffect( () => {
-    //     window.addEventListener('scroll', handleScroll, {passive: true});
-    //
-    //     return () => window.removeEventListener('scroll', handleScroll);
-    // }, []);
-    //
     return {
         onChange,
         value,
