@@ -7,13 +7,22 @@ interface IUseInput {
     onChange: (event: any) => void;
 }
 
-export const useInput = (initialValue: string): IUseInput => {
+type Validator = (value: string) => boolean;
+
+export const useInput = (initialValue: string, validator: Validator): IUseInput => {
 
     const [value, setValue] = useState<string>(initialValue);
 
     const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        let isEditable = true;
         const { target: { value } } = event;
-        setValue(value);
+
+        if (typeof validator === 'function') {
+            isEditable = validator(value);
+        }
+        if (isEditable) {
+            setValue(value);
+        }
     }
 
     return {
