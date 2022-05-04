@@ -9,6 +9,7 @@ import {useLocalStorage} from "./hooks/useLocalStorage";
 import {useNetwork} from "./hooks/useNetwork";
 import {useScroll} from "./hooks/useScroll";
 import {useFullScreen} from "./hooks/useFullScreen";
+import {useNotification} from "./hooks/useNotification";
 
 const style  = {
     'height': '1500px'
@@ -46,7 +47,10 @@ function App(): JSX.Element {
         console.log('handleNetworkStatus', status);
     }
   const status = useNetwork(handleNetworkStatus);
-
+  const triggerNotification = useNotification('Could I send you notification?', {
+      body: 'Как ты относишься к спаму?',
+      image: 'https://habrastorage.org/r/w1560/webt/sj/uf/xu/sjufxuqiadew2_zg3veuhlac7em.png'
+  });
   const deleteAll = () => {
       console.log('Удалили всё на свете');
   }
@@ -57,6 +61,10 @@ function App(): JSX.Element {
   return (
     <div className={'App'} style={style}>
         <h1>Customs hooks</h1>
+        <div>
+            <h2>useNotification</h2>
+            <button onClick={triggerNotification}>Отправить уведомление</button>
+        </div>
         <div onClick={exitFull}>
             <h2>useFullScreen</h2>
             <img ref={element} src="https://habrastorage.org/r/w1560/webt/sj/uf/xu/sjufxuqiadew2_zg3veuhlac7em.png" alt="image"/>
