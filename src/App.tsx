@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import {useClick} from "./hooks/useClick";
 import {useConfirm} from "./hooks/useConfirm";
 import {usePreventLeave} from "./hooks/usePreventLeave";
+import {useLocalStorage} from "./hooks/useLocalStorage";
 
 const tabContent = [
     {
@@ -33,6 +34,7 @@ function App(): JSX.Element {
   const name = useInput('wertey', maxLen);
   const email = useInput('@', checkAt);
   const { currentItem, changeTab } = useTabs(0, tabContent);
+  const test = useLocalStorage('wertey', 'default value');
 
   const deleteAll = () => {
       console.log('Удалили всё на свете');
@@ -43,6 +45,10 @@ function App(): JSX.Element {
   return (
     <div className={'App'}>
         <h1>Customs hooks</h1>
+        <div>
+            <h2>UseLocalStorage</h2>
+            <input type="text" value={test.storedValue} onChange={(e) => test.setValue(e.target.value)}/>
+        </div>
         <div>
             <h2>useConfirm</h2>
             <button onClick={confirmDelete}>Delete</button>
@@ -55,8 +61,6 @@ function App(): JSX.Element {
         {/*// or {...value} {...onChange}*/}
         <input type="text" placeholder={`Name`} value={name.value} onChange={name.onChange}/>
         <input type="text" placeholder={`Email`} value={email.value} onChange={email.onChange}/>
-
-
         <div>
             <h2>UseTabs</h2>
             <div>
@@ -69,7 +73,6 @@ function App(): JSX.Element {
                 currentTab={currentItem.content}
             </div>
         </div>
-
         <div>
             <h2>useClick</h2>
             <h3 ref={title}>Привет!</h3>
