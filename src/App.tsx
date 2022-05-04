@@ -7,6 +7,11 @@ import {useConfirm} from "./hooks/useConfirm";
 import {usePreventLeave} from "./hooks/usePreventLeave";
 import {useLocalStorage} from "./hooks/useLocalStorage";
 import {useNetwork} from "./hooks/useNetwork";
+import {useScroll} from "./hooks/useScroll";
+
+const style  = {
+    'height': '1500px'
+}
 
 const tabContent = [
     {
@@ -46,10 +51,15 @@ function App(): JSX.Element {
   }
   const { enablePrevent, disablePrevent } = usePreventLeave();
   const confirmDelete = useConfirm('Вы действительно что хотите это удалить?', deleteAll);
-
+  const { y } = useScroll();
   return (
-    <div className={'App'}>
+    <div className={'App'} style={style}>
         <h1>Customs hooks</h1>
+        <div>
+            <h2>useScroll</h2>
+            y={y}
+            <h1 style={{color: y > 30 ? 'red' : 'blue'}}>Say hello UseScroll</h1>
+        </div>
         <div>
             <h2>useNetwork</h2>
             <h3>{ status ? 'Онлайн' : 'Офлайн' }</h3>
