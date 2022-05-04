@@ -6,6 +6,7 @@ import {useClick} from "./hooks/useClick";
 import {useConfirm} from "./hooks/useConfirm";
 import {usePreventLeave} from "./hooks/usePreventLeave";
 import {useLocalStorage} from "./hooks/useLocalStorage";
+import {useNetwork} from "./hooks/useNetwork";
 
 const tabContent = [
     {
@@ -25,7 +26,7 @@ function App(): JSX.Element {
       return value.length <= 10;
   }
   const checkAt = (value: string) => !value.includes('@', 1);
-  const headTitle = useHeadTitle('Загрузка...');
+  const headTitle = useHeadTitle('Main page for Custom hooks');
     const sayHello = (): void => {
         console.log('hello');
     }
@@ -35,6 +36,10 @@ function App(): JSX.Element {
   const email = useInput('@', checkAt);
   const { currentItem, changeTab } = useTabs(0, tabContent);
   const test = useLocalStorage('wertey', 'default value');
+    const handleNetworkStatus = (status: boolean): void => {
+        console.log('handleNetworkStatus', status);
+    }
+  const status = useNetwork(handleNetworkStatus);
 
   const deleteAll = () => {
       console.log('Удалили всё на свете');
@@ -45,6 +50,10 @@ function App(): JSX.Element {
   return (
     <div className={'App'}>
         <h1>Customs hooks</h1>
+        <div>
+            <h2>useNetwork</h2>
+            <h3>{ status ? 'Онлайн' : 'Офлайн' }</h3>
+        </div>
         <div>
             <h2>UseLocalStorage</h2>
             <input type="text" value={test.storedValue} onChange={(e) => test.setValue(e.target.value)}/>
