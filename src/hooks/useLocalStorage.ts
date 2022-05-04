@@ -13,8 +13,6 @@ export const useLocalStorage = (key: string, initialValue: string) => {
 
     const setValue = (value: any): void => {
        try {
-           console.log('value instanceof Function', value instanceof Function);
-           console.log('==', value === 'function');
            const valueToStore = value instanceof Function ? value(storedValue) : value;
            setStoredValue(valueToStore);
            window.localStorage.setItem(key, JSON.stringify(valueToStore));
