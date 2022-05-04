@@ -18,7 +18,7 @@ function Home(): JSX.Element {
     return (
         <div className={`Home ${theme}`}>
             <div>
-                { onSmallScreen ? 'small' : 'large' }
+                { onSmallScreen ? 'small' : 'large1' }
             </div>
             <button onClick={toggleValue}>Toggle Content</button>
             {
