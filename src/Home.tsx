@@ -1,10 +1,13 @@
 import useInputValidation from './hooks/useInputValidation';
 import {useTheme} from "./hooks/useTheme";
+import {useState} from "react";
+import useToggle from "./hooks/useToggle";
 
 
 function Home(): JSX.Element {
     const name = useInputValidation('hello world', true);
     const { theme, toggleTheme } = useTheme('white');
+    const { value, toggleValue } = useToggle();
 
     const handleChangeTheme = () => {
         toggleTheme();
@@ -12,10 +15,16 @@ function Home(): JSX.Element {
 
     return (
         <div className={`Home ${theme}`}>
-            {/*<form>*/}
-            {/*    <input {...name} />*/}
-            {/*    {name.error && <span style={{ color: 'red'}}>{name.error}</span>}*/}
-            {/*</form>*/}
+            <button onClick={toggleValue}>Toggle Content</button>
+            {
+                value ? <div>
+                    Content
+                </div> : null
+            }
+            <form>
+                <input {...name} />
+                {name.error && <span style={{ color: 'red'}}>{name.error}</span>}
+            </form>
             <button onClick={handleChangeTheme}>Swich mode</button>
         </div>
     )
