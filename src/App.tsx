@@ -8,6 +8,7 @@ import {usePreventLeave} from "./hooks/usePreventLeave";
 import {useLocalStorage} from "./hooks/useLocalStorage";
 import {useNetwork} from "./hooks/useNetwork";
 import {useScroll} from "./hooks/useScroll";
+import {useFullScreen} from "./hooks/useFullScreen";
 
 const style  = {
     'height': '1500px'
@@ -52,9 +53,15 @@ function App(): JSX.Element {
   const { enablePrevent, disablePrevent } = usePreventLeave();
   const confirmDelete = useConfirm('Вы действительно что хотите это удалить?', deleteAll);
   const { y } = useScroll();
+  const { element, triggerFullScreen, exitFull } = useFullScreen();
   return (
     <div className={'App'} style={style}>
         <h1>Customs hooks</h1>
+        <div onClick={exitFull}>
+            <h2>useFullScreen</h2>
+            <img ref={element} src="https://habrastorage.org/r/w1560/webt/sj/uf/xu/sjufxuqiadew2_zg3veuhlac7em.png" alt="image"/>
+            <button onClick={triggerFullScreen}>FULL SCREEN IMAGE</button>
+        </div>
         <div>
             <h2>useScroll</h2>
             y={y}
