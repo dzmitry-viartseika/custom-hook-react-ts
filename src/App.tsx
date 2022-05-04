@@ -1,7 +1,7 @@
 import { useInput } from "./hooks/useInput";
 import {useTabs} from "./hooks/useTabs";
 import {useHeadTitle} from "./hooks/useHeadTitle";
-import { useRef } from 'react';
+import {useRef, useState} from 'react';
 import {useClick} from "./hooks/useClick";
 import {useConfirm} from "./hooks/useConfirm";
 import {usePreventLeave} from "./hooks/usePreventLeave";
@@ -10,10 +10,13 @@ import {useNetwork} from "./hooks/useNetwork";
 import {useScroll} from "./hooks/useScroll";
 import {useFullScreen} from "./hooks/useFullScreen";
 import {useNotification} from "./hooks/useNotification";
+import useAxios from "./hooks/useAxios";
 
 const style  = {
     'height': '1500px'
 }
+
+const URL = 'https://jsonplaceholder.typicode.com/posts/';
 
 const tabContent = [
     {
@@ -57,10 +60,33 @@ function App(): JSX.Element {
   const { enablePrevent, disablePrevent } = usePreventLeave();
   const confirmDelete = useConfirm('Вы действительно что хотите это удалить?', deleteAll);
   const { y } = useScroll();
+  const testValues = useAxios({url: URL});
+  const [data, setData] = useState<any[]>([]);
+  const fetchNewData = async () => {
+      try {
+          console.log('response', testValues);
+          if (testValues?.data) {
+              setData(testValues.data);
+          }
+      } catch (e) {
+          console.error(e);
+      }
+  }
   const { element, triggerFullScreen, exitFull } = useFullScreen();
   return (
     <div className={'App'} style={style}>
         <h1>Customs hooks</h1>
+        <div>
+            <h2>useAxios</h2>
+            <div>
+                {data.map((item)=>{
+                    return (
+                        <div key={item.id}>{ item.title }</div>
+                    )
+                })}
+            </div>
+            <button onClick={fetchNewData}>Refetch</button>
+        </div>
         <div>
             <h2>useNotification</h2>
             <button onClick={triggerNotification}>Отправить уведомление</button>
